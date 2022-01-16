@@ -12,6 +12,7 @@ import {useAuth} from "../context/AuthContextProvider";
 import {Link} from 'react-router-dom'
 
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -51,7 +52,12 @@ export default function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
-  const {currentUser}=useAuth();
+  let {currentUser,logout}=useAuth();
+
+   //just for testing purpose
+  currentUser={
+    email:"a@gmail.com",
+  }
 
   
 
@@ -61,6 +67,11 @@ export default function Navbar() {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout=()=>{
+    setAnchorEl(null);
+    logout()
   };
 
   return (
@@ -85,7 +96,8 @@ export default function Navbar() {
               >
                 <AccountCircle  style={{fontSize:"40px"}}/>
               </IconButton>
-              {currentUser?.email?(<Menu
+              {currentUser?.email?(
+              <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
@@ -100,13 +112,18 @@ export default function Navbar() {
                 open={open}
                 onClose={handleClose}
               >
-              <Link to="/login" className={classes.linkStyle}>
-                <MenuItem onClick={handleClose}>Login</MenuItem>
+                <Link to="/profile" className={classes.linkStyle}>
+                <MenuItem onClick={handleClose}>Profile</MenuItem>
               </Link>  
 
-              <Link to="/register" className={classes.linkStyle}>
-                <MenuItem onClick={handleClose}>Register</MenuItem>
+              <Link to="/new-blog" className={classes.linkStyle}>
+                <MenuItem onClick={handleClose}>New Blog</MenuItem>
               </Link>  
+
+              <Link to="/login" className={classes.linkStyle}>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+              </Link>  
+              
 
                
               </Menu>):(<Menu
@@ -124,6 +141,8 @@ export default function Navbar() {
                 open={open}
                 onClose={handleClose}
               >
+              
+
               <Link to="/login" className={classes.linkStyle}>
                 <MenuItem onClick={handleClose}>Login</MenuItem>
               </Link>  
