@@ -1,35 +1,32 @@
-import React from 'react'
-import { BrowserRouter as Router,Routes,Route } from 'react-router-dom'
-import Navbar from "../components/Navbar"
-import Login from "../pages/Login";
-import Register from "../pages/Register";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "../components/Navbar";
+import { Login } from "../pages/LoginRegister";
+import { Register } from "../pages/LoginRegister";
 import Dashboard from "../pages/Dashboard";
-import Profile from "../pages/Profile";
-import NewBlog from "../pages/NewBlog";
-import Detail from "../pages/Detail";
 import UpdateBlog from "../pages/UpdateBlog";
-import PrivateRouter from './PrivateRouter';
+import Detail from "../pages/Detail";
 
+import NewBlog from "../pages/NewBlog";
+import Profile from "../pages/Profile";
+import PrivateRouter from "./PrivateRouter";
 
 const AppRouter = () => {
-    return (
-        <Router>
-            <Navbar/>
-            <Routes>
-                <Route path="/login" element={<Login/>}/>
-                <Route path="/register" element={<Register/>}/>
-                <Route path="/" element={<Dashboard/>}/>
+  return (
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
+        <Route path="/" exact component={Dashboard} />
 
-                <PrivateRouter path="/profile" element={<Profile/>}/>
-                <PrivateRouter path="/new-blog" element={<NewBlog/>}/>
-                <PrivateRouter path="/detail" element={<Detail/>}/>
-                <PrivateRouter path="/update-blog" element={<UpdateBlog/>}/>
+        <PrivateRouter path="/profile" component={Profile} />
+        <PrivateRouter path="/new-blog" component={NewBlog} />
+        <PrivateRouter path="/update-blog/:id" component={UpdateBlog} />
+        <PrivateRouter path="/detail/:id" component={Detail} />
+      </Routes>
+    </Router>
+  );
+};
 
-            </Routes>
-
-            
-        </Router>
-    )
-}
-
-export default AppRouter
+export default AppRouter;

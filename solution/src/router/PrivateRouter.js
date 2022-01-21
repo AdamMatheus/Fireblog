@@ -1,17 +1,21 @@
-import React from 'react'
-import {Navigate,Route} from "react-router";
-import { useAuth } from '../context/AuthContextProvider';
+import React from "react";
+import { Navigate, Route } from "react-router-dom";
+import { useAuth } from "../context/AuthContextProvider";
 
 const PrivateRouter = (props) => {
-    let {currentUser} =useAuth();
-    //just for testing
-     //just for testing purpose
-  currentUser={
-    email:"a@gmail.com",
-  }
-    return currentUser ? (
-         <Route path={props.path} component={props.component}/>
-         ) :(<Navigate to ="/login"/>);}
+  console.log("props: ", props);
+  let { currentUser } = useAuth();
 
+  //!Just for testing purpose
+  // currentUser = {
+  //   email: "a@gmailcom",
+  // };
 
-export default PrivateRouter
+  return currentUser ? (
+    <Route path={props.path} element={<props.component/>} />
+  ) : (
+    <Navigate to="/login" />
+  );
+};
+
+export default PrivateRouter;
